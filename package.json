@@ -1,0 +1,88 @@
+{
+  "name": "@hasna/automations",
+  "version": "0.1.0",
+  "description": "Deterministic automation control plane and daemon for Hasna open-source apps",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "automations": "dist/cli/index.js",
+    "hasna-automations": "dist/cli/index.js",
+    "automations-daemon": "dist/daemon/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./store": {
+      "types": "./dist/lib/store.d.ts",
+      "import": "./dist/lib/store.js"
+    },
+    "./paths": {
+      "types": "./dist/lib/paths.d.ts",
+      "import": "./dist/lib/paths.js"
+    },
+    "./runtime": {
+      "types": "./dist/lib/runtime.d.ts",
+      "import": "./dist/lib/runtime.js"
+    },
+    "./cli": {
+      "types": "./dist/cli/index.d.ts",
+      "import": "./dist/cli/index.js"
+    },
+    "./daemon": {
+      "types": "./dist/daemon/index.d.ts",
+      "import": "./dist/daemon/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md",
+    "CONTRIBUTING.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && bun build src/cli/index.ts src/daemon/index.ts src/index.ts src/types.ts src/lib/store.ts src/lib/paths.ts src/lib/runtime.ts --outdir dist --target bun --packages external && chmod +x dist/cli/index.js dist/daemon/index.js && tsc -p tsconfig.build.json --emitDeclarationOnly --outDir dist",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "prepublishOnly": "bun run test && bun run build"
+  },
+  "keywords": [
+    "automations",
+    "daemon",
+    "actions",
+    "events",
+    "queue",
+    "dlq",
+    "typescript",
+    "bun",
+    "hasna"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hasna/open-automations.git"
+  },
+  "homepage": "https://github.com/hasna/open-automations#readme",
+  "bugs": {
+    "url": "https://github.com/hasna/open-automations/issues"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "author": "Hasna",
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "@hasna/actions": "^0.1.0"
+  },
+  "devDependencies": {
+    "@hasna/actions": "file:../open-actions",
+    "@types/bun": "latest",
+    "typescript": "^5.7.3"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  }
+}
